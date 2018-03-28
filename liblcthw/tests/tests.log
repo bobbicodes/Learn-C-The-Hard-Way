@@ -1,0 +1,41 @@
+
+[34mDEBUG[39m ----- RUNNING: ./tests/list_tests
+   [90m at main (tests/list_tests.c:107) [39m
+[34mDEBUG[39m 
+------ test_create
+   [90m at all_tests (tests/list_tests.c:97) [39m
+[34mDEBUG[39m 
+------ test_push_pop
+   [90m at all_tests (tests/list_tests.c:98) [39m
+[34mDEBUG[39m 
+------ test_unshift
+   [90m at all_tests (tests/list_tests.c:99) [39m
+[34mDEBUG[39m 
+------ test_remove
+   [90m at all_tests (tests/list_tests.c:100) [39m
+[34mDEBUG[39m 
+------ test_shift
+   [90m at all_tests (tests/list_tests.c:101) [39m
+[34mDEBUG[39m 
+------ test_destroy
+   [90m at all_tests (tests/list_tests.c:102) [39m
+[34mDEBUG[39m ----- RUNNING: ./tests/list_tests
+   [90m at main (tests/list_tests.c:107) [39m
+[34mDEBUG[39m 
+------ test_create
+   [90m at all_tests (tests/list_tests.c:97) [39m
+[34mDEBUG[39m 
+------ test_push_pop
+   [90m at all_tests (tests/list_tests.c:98) [39m
+[34mDEBUG[39m 
+------ test_unshift
+   [90m at all_tests (tests/list_tests.c:99) [39m
+[34mDEBUG[39m 
+------ test_remove
+   [90m at all_tests (tests/list_tests.c:100) [39m
+[34mDEBUG[39m 
+------ test_shift
+   [90m at all_tests (tests/list_tests.c:101) [39m
+[34mDEBUG[39m 
+------ test_destroy
+   [90m at all_tests (tests/list_tests.c:102) [39m

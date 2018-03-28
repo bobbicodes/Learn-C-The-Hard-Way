@@ -1,20 +1,23 @@
-CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
-LIBS=-ldl $(OPTLIBS)
-PREFIX?=/usr/local
+CFLAGS = -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+LIBS = $(OPTLIBS)
+PREFIX ?= /usr/local
+
+# control to echo commands
+Q=@
 
 SOURCES=$(wildcard src/**/*.c src/*.c)
-OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
+OBJECTS=$(patsubst %.c, %.o, $(SOURCES))
 
 TEST_SRC=$(wildcard tests/*_tests.c)
-TESTS=$(patsubst %.c,%,$(TEST_SRC))
+TESTS=$(patsubst %.c, %, $(TEST_SRC))
 
-TARGET=build/libYOUR_LIBRARY.a
-SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
+TARGET = build/liblcthw.a
+SO_TARGET = $(patsubst %.a, %.so, $(TARGET))
 
 # The Target Build
 all: $(TARGET) $(SO_TARGET) tests
 
-dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
+dev: CFLAGS = -g -Wall -Isrc -Wall -Wextra $(OPTLIBS)
 dev: all
 
 $(TARGET): CFLAGS += -fPIC
@@ -26,14 +29,17 @@ $(SO_TARGET): $(TARGET) $(OBJECTS)
 	$(CC) -shared -o $@ $(OBJECTS)
 
 build:
-	@mkdir -p build
-	@mkdir -p bin
+	$(Q)mkdir -p build
+	$(Q)mkdir -p bin
 
 # The Unit Tests
 .PHONY: tests
 tests: CFLAGS += $(TARGET)
 tests: $(TESTS)
 	sh ./tests/runtests.sh
+
+$(TESTS):%:%.c
+	$(CC) $^ $(CFLAGS) $(LIBS) -o $@
 
 valgrind:
 	VALGRIND="valgrind --log-file=/tmp/valgrind-%p.log" $(MAKE)
@@ -51,7 +57,7 @@ install: all
 	install $(TARGET) $(DESTDIR)/$(PREFIX)/lib/
 
 # The Checker
-BADFUNCS='[^_.>a-zA-Z0-9](str(n?cpy|n?cat|xfrm|n?dup|str|pbrk|tok|_)|stpn?cpy|a?sn?printf|byte_)'
+BADFUNCS="[^_.>a-zA-Z0-9](str(n?cpy|n?cat|xfrm|n?dup|str|pbrk|tok|_)|stpn?cpy|a?sn?printf|byte_)"
 check:
-	@echo Files with potentially dangerous functions.
-	@egrep $(BADFUNCS) $(SOURCES) || true
+	$(Q)echo Files with potentially dangerous functions.
+	$(Q)egrep $(BADFUNCS) $(SOURCES) || true
