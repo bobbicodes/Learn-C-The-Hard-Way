@@ -89,26 +89,22 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-You declare Integers with the int keyword, and print them with %d.
-Floating Points are declared with float or double depending on how big they need to be (double is bigger), and
-printed with %f.
-Characters are declared with char, written with a ' (single-quote) character around the char, and then printed with
-%c.
-String (Array of Characters) Declared with char name[], written with " characters, and printed with %s.
+Integers are declared with the int keyword and printed with %d.
+Floating Points are declared with float or double (double is bigger), and printed with %f.
+Characters are declared with char, put in single quotes and printed with %c.
+Strings (Arrays of Characters) are declared with char name[],
+written with " characters, and printed with %s.
 There's a difference between single-quote for char and double-quote for char[] or strings.
-a long is for storing big numbers. Print out that number using %ld which adds a modifier to the usual %d. Adding ’l’ (the letter ell)
-means "print this as a long decimal".
+a long is for storing big numbers.
+Print out that number using %ld which adds a modifier to the usual %d.
+Adding ’l’ (the letter ell) means "print this as a long decimal".
 use %e to print in scientific notation.
- Make a character, with a special syntax '\0' which creates a ’nul byte’ character. This is effectively
+Make a character, with a special syntax '\0' which creates a ’nul byte’ character.
+This is effectively
 the number 0.
 
 
-************************
-pdf goes to Sizes and arrays... code goes to if, else if, else.
-We'll just paste here from the pdf for now, so it will be together.
-**************************************
-
-In the last exercise you did math, but with a '\0' (nul) character.
+The last exercise did math, but with a '\0' (nul) character.
 This may be odd coming from other languages,
 since they try to treat "strings" and "byte arrays" as different beasts.
 C however treats strings as just arrays of bytes,
@@ -154,51 +150,65 @@ int main(int argc, char *argv[])
     return 0;
 }
 
-
-In this code we create a few arrays with different data types in them. Because arrays of data are so central to how
-C works, there’s a huge number of ways to create them. For now, just use the syntax type name[] = {initializer};
-and we’ll explore more. What this syntax means is, "I want an array of type that is initialized to ..." When C sees
-this it does the following:
+We create a few arrays with different data types in them.
+Because arrays of data are so central to how
+C works, there’s a huge number of ways to create them.
+For now, just use the syntax type name[] = {initializer}; and we’ll explore more.
+What this syntax means is, "I want an array of type that is initialized to ..."
+When C sees this it does the following:
 1. Look at the type, in this first case it’s int.
 2. Look at the [] and see that there’s no length given.
-3. Look at the initializer, {10, 12, 13, 14, 20} and figure out that you want those 5 ints in your array.
+3. Look at the initializer, {10, 12, 13, 14, 20}
+and figure out that you want those 5 ints in your array.
 4. Create a piece of memory in the computer, that can hold 5 integers one after another.
 5. Take the name you want, areas and assign it this location.
-In the case of areas it’s creating an array of 5 ints that contain those numbers. When it gets to char name[] = "Zed";
-it’s doing the same thing, except it’s creating an array of 3 chars and assigning that to name. The final array we
-make is full_name, but we use the annoying syntax of spelling it out, one character at a time. To C, name and
-full_name are identical methods of creating a char array.
-The rest of the file, we’re using a keyword called sizeof to ask C how big things are in bytes. C is all about the
-size and location of pieces of memory and what you do with them. To help you keep that straight, it gives you
-sizeof so you can ask how big something is before you work with it.
-This is where stuff gets tricky, so first let’s run this and then explain further.
+In the case of areas it’s creating an array of 5 ints that contain those numbers.
+When it gets to char name[] = "Zed"; it’s doing the same thing,
+except it’s creating an array of 3 chars and assigning that to name.
+The final array is full_name, but spell it out one character at a time.
+To C, name and full_name are identical methods of creating a char array.
+The rest of the file, we’re using a keyword called sizeof to ask C how big things are in bytes.
+C is all about the size and location of pieces of memory and what you do with them.
+To help you keep that straight, it gives you sizeof
+so you can ask how big something is before you work with it.
 
 (ex8 output)
 
-Now you see the output of these different printf calls and start to get a glimpse of what C is doing. Your output
-could actually be totally different from mine, since your computer might have different size integers. I’ll go
-through my output:
-5 My computer thinks an int is 4 bytes in size. Your computer might use a different size if it’s a 32-bit vs. 64-bit.
-6 The areas array has 5 integers in it, so it makes sense that my computer requires 20 bytes to store it.
-7 If we divide the size of areas by size of an int then we get 5 elements. Looking at the code, this matches what
-we put in the initializer.
-8 We then did an array access to get areas[0] and areas[1] which means C is "zero indexed" like Python and
-Ruby.
-9-11 We repeat this for the name array, but notice something odd about the size of the array? It says it’s 4 bytes
-long, but we only typed "Zed" for 3 characters. Where’s the 4th one coming from?
+Now you see the output of these different printf calls
+and start to get a glimpse of what C is doing.
+Your output could actually be totally different from mine,
+since your computer might have different size integers. I’ll go through my output:
+5 My computer thinks an int is 4 bytes in size.
+Your computer might use a different size if it’s a 32-bit vs. 64-bit.
+6 The areas array has 5 integers in it,
+so it makes sense that my computer requires 20 bytes to store it.
+7 If we divide the size of areas by size of an int then we get 5 elements.
+Looking at the code, this matches what we put in the initializer.
+8 We then did an array access to get areas[0] and areas[1]
+which means C is "zero indexed" like Python and Ruby.
+9-11 We repeat this for the name array,
+but notice something odd about the size of the array?
+It says it’s 4 bytes long, but we only typed "Zed" for 3 characters.
+Where’s the 4th one coming from?
 12-13 We do the same thing with full_name and notice it gets this correct.
-13 Finally we just print out the name and full_name to prove that they actually are "strings" according to printf.
-Make sure you can go through and see how these output lines match what was created. We’ll be building on this
-and exploring more about arrays and storage next.
+13 Finally we just print out the name and full_name
+to prove that they actually are "strings" according to printf.
+Make sure you can go through and see how these output lines match what was created.
+We’ll be building on this and exploring more about arrays and storage next.
+
+************************************************
 
 ex9 arrays and strings
 
-In the last exercise you went through an introduction to creating basic arrays and how they map to strings. In
-this exercise we’ll more completely show the similarity between arrays and strings, and get into more about
-memory layouts.
-This exercise shows you that C stores its strings simply as an array of bytes, terminated with the '\0' (nul) byte.
-You probably clued into this in the last exercise since we did it manually. Here’s how we do it in another way to
-make it even more clear by comparing it to an array of numbers:
+In the last exercise you went through an introduction to creating basic arrays
+and how they map to strings.
+In this exercise we’ll more completely show the similarity between arrays and strings,
+and get into more about memory layouts.
+This exercise shows you that C stores its strings simply as an array of bytes,
+terminated with the '\0' (nul) byte.
+You probably clued into this in the last exercise since we did it manually.
+Here’s how we do it in another way to make it even more clear
+by comparing it to an array of numbers:
 
 ex9.c
 
@@ -252,40 +262,49 @@ int main(int argc, char *argv[])
 }
 
 
-In this code, we setup some arrays the tedious way, by assigning a value to each element. In numbers we are
-setting up numbers, but in name we’re actually building a string manually.
+In this code, we setup some arrays the tedious way, by assigning a value to each element.
+In numbers we are setting up numbers, but in name we’re actually building a string manually.
 
-When you run this code you should see first the arrays printed with their contents initialized to zero, then in its
-initialized form:
+When you run this code you should see first the arrays printed
+with their contents initialized to zero, then in its initialized form:
 
 ex9 output
 
 You’ll notice some interesting things about this program:
-1. I didn’t have to give all 4 elements of the arrays to initialize them. This is a short-cut that C has where, if
-you set just one element, it’ll fill the rest in with 0.
+1. I didn’t have to give all 4 elements of the arrays to initialize them.
+This is a short-cut that C has where, if you set just one element, it’ll fill the rest in with 0.
 2. When each element of numbers is printed they all come out as 0.
-3. When each element of name is printed, only the first element ’a’ shows up because the '\0' character is
-special and won’t display.
-4. Then the first time we print name it only prints "a" because, since the array will be filled with 0 after the
-first ’a’ in the initializer, then the string is correctly terminated by a '\0' character.
-5. We then setup the arrays with a tedious manual assignment to each thing and print them out again. Look
-at how they changed. Now the numbers are set, but see how the name string prints my name correctly?
-6. There’s also two syntaxes for doing a string: char name[4] = {'a'} on line 6 vs. char *another = "name"
-on line 44. The first one is less common and the second is what you should use for string literals like this.
-Notice that I’m using the same syntax and style of code to interact with both an array of integers and an array of
-characters, but that printf thinks that the name is just a string. Again, this is because to the C language there’s
+3. When each element of name is printed,
+only the first element ’a’ shows up because the '\0' character is special and won’t display.
+4. Then the first time we print name it only prints "a" because,
+since the array will be filled with 0 after the first ’a’ in the initializer,
+then the string is correctly terminated by a '\0' character.
+5. We then setup the arrays with a tedious manual assignment to each thing
+and print them out again. Look at how they changed.
+Now the numbers are set, but see how the name string prints my name correctly?
+6. There’s also two syntaxes for doing a string:
+char name[4] = {'a'} on line 6 vs. char *another = "name" on line 44.
+The first one is less common
+and the second is what you should use for string literals like this.
+Notice that I’m using the same syntax and style of code
+to interact with both an array of integers and an array of characters,
+but that printf thinks that the name is just a string.
+Again, this is because to the C language there’s
 no difference between a string and an array of characters.
-Finally, when you make string literals you should usually use the char *another = "Literal" syntax. This
-works out to be the same thing, but it’s more idiomatic and easier to write.
+Finally, when you make string literals you should usually use
+the char *another = "Literal" syntax.
+This works out to be the same thing, but it’s more idiomatic and easier to write.
 
 ex10 arrays of strings, looping
 
-You can make an array of various types, and have the idea down that a "string" and an "array of bytes" are
-the same thing. The next thing is to take this one step further and do an array that has strings in it. We’ll also
-introduce your first looping construct, the for-loop to help print out this new data structure.
-The fun part of this is that there’s been an array of strings hiding in your programs for a while now, the char
-*argv[] in the main function arguments. Here’s code that will print out any command line arguments you pass
-it:
+You can make an array of various types,
+and have the idea down that a "string" and an "array of bytes" are the same thing.
+The next thing is to take this one step further and do an array that has strings in it.
+We’ll also introduce your first looping construct,
+the for-loop to help print out this new data structure.
+The fun part of this is that there’s been an array of strings
+hiding in your programs for a while now, the char *argv[] in the main function arguments.
+Here’s code that will print out any command line arguments you pass it:
 
 ex10.c
 
@@ -326,32 +345,37 @@ for(INITIALIZER; TEST; INCREMENTER) {
 
 Here’s how the for-loop works:
 1. The INITIALIZER is code that is run to setup the loop, in this case i = 0.
-2. Next the TEST boolean expression is checked, and if it’s false (0) then CODE is skipped, doing nothing.
+2. Next the TEST boolean expression is checked,
+and if it’s false (0) then CODE is skipped, doing nothing.
 3. The CODE runs, does whatever it does.
-4. After the CODE runs, the INCREMENTER part is run, usually incrementing something, like in i++.
+4. After the CODE runs, the INCREMENTER part is run,
+usually incrementing something, like in i++.
 5. And it continues again with Step 2 until the TEST is false (0).
 This for-loop is going through the command line arguments using argc and argv like this:
-1. The OS passes each command line argument as a string in the argv array. The program’s name (./ex10) is
-at 0, with the rest coming after it.
-2. The OS also sets argc to the number of arguments in the argv array so you can process them without going
-past the end. Remember that if you give one argument, the program’s name is the first, so argc is 2.
+1. The OS passes each command line argument as a string in the argv array.
+The program’s name (./ex10) is at 0, with the rest coming after it.
+2. The OS also sets argc to the number of arguments in the argv array
+so you can process them without going past the end.
+Remember that if you give one argument, the program’s name is the first, so argc is 2.
 3. The for-loop sets up with i = 1 in the initializer.
 4. It then tests that i is less than argc with the test i < argc. Since initially 1 < 2 it will pass.
 5. It then runs the code which just prints out the i and uses i to index into argv.
 6. The incrementer is then run using the i++ syntax, which is a handy way of writing i = i + 1.
-7. This then repeats until i < argc is finally false (0) when the loop exits and the program continues on.
+7. This then repeats until i < argc is finally false (0) when the loop exits
+and the program continues on.
 
 (ex10 output)
 
-11.1.1
- Understanding Arrays Of Strings
-45
-From this you should be able to figure out that in C you make an "array of strings" by combining the char *str = "blah"
-syntax with the char str[] = {'b','l','a','h'} syntax to construct a 2-dimensional array. The syntax
-char *states[] = {...} on line 14 is this 2-dimension combination, with each string being one element, and
-each character in the string being another.
-Confusing? The concept of multiple dimensions is something most people never think about so what you should
-do is build this array of strings on paper:
+11.1.1 Understanding Arrays Of Strings
+
+From this you should be able to figure out that in C you make an "array of strings"
+by combining the char *str = "blah" syntax
+with the char str[] = {'b','l','a','h'} syntax
+to construct a 2-dimensional array.
+The syntax char *states[] = {...} on line 14 is this 2-dimension combination,
+with each string being one element, and each character in the string being another.
+Confusing? The concept of multiple dimensions is something most people never think about
+so what you should do is build this array of strings on paper:
 1. Make a grid with the index of each string on the left.
 2. Then put the index of each character on the top.
 3. Then, fill in the squares in the middle with what single character goes in that cell.
@@ -360,14 +384,18 @@ do is build this array of strings on paper:
 **************************
 Exercise 11: While-Loop And Boolean Expressions
 
-You’ve had your first taste of how C does loops, but the boolean expression i < argc might have not been clear
+You’ve had your first taste of how C does loops,
+but the boolean expression i < argc might have not been clear
 to you. Let me explain something about it before we see how a while-loop works.
-In C, there’s not really a "boolean" type, and instead any integer that’s 0 is "false" and otherwise it’s "true". In the
-last exercise the expression i < argc actually resulted in 1 or 0, not an explicit True or False like in Python.
-This is another example of C being closer to how a computer works, because to a computer truth values are just
-integers.
-Now you’ll take and implement the same program from the last exercise but use a while-loop instead. This
-will let you compare the two so you can see how one is related to another.
+In C, there’s not really a "boolean" type,
+and instead any integer that’s 0 is "false" and otherwise it’s "true". In the
+last exercise the expression i < argc actually resulted in 1 or 0,
+not an explicit True or False like in Python.
+This is another example of C being closer to how a computer works,
+because to a computer truth values are just integers.
+Now you’ll take and implement the same program from the last exercise
+but use a while-loop instead.
+This will let you compare the two so you can see how one is related to another.
 ex11.c
 
 #include <stdio.h>
@@ -388,11 +416,13 @@ You can see from this that a while-loop is simpler:
 while(TEST) {
 	CODE;
 }
-It simply runs the CODE as long as TEST is true (1). This means that to replicate how the for-loop works we
+It simply runs the CODE as long as TEST is true (1).
+This means that to replicate how the for-loop works we
 need to do our own initializing and incrementing of i.
 
 Exercise 12: If, Else-If, Else
-Something common in every language is the if-statement, and C has one. Here’s code that uses an if-statement
+Something common in every language is the if-statement, and C has one.
+Here’s code that uses an if-statement
 to make sure you enter only 1 or 2 arguments:
 
 ex12.c
@@ -431,19 +461,24 @@ CODE;
 This is like most other languages except for some specific C differences:
 1. As mentioned before, the TEST parts are false if they evaluate to 0, and true otherwise.
 2. You have to put parenthesis around the TEST elements.
-3. You don’t need the {} braces to enclose the code, but it is very bad form to not use them. The braces make
-it clear where one branch of code begins and ends. If you don’t include it then obnoxious errors come up.
+3. You don’t need the {} braces to enclose the code, but it is very bad form to not use them.
+The braces make
+it clear where one branch of code begins and ends.
+If you don’t include it then obnoxious errors come up.
 Other than that, they work like others do. You don’t need to have either else if or else parts.
 
 Exercise 13: Switch Statement
-In other languages like Ruby you have a switch-statement that can take any expression. Some languages
-like Python just don’t have a switch-statement since an if-statement with boolean expressions is about the
-same thing. For these languages, switch-statements are more alternatives to if-statements and work the
-same internally.
-The switch-statement is actually entirely different and is really a "jump table". Instead of random boolean
-expressions, you can only put expressions that result in integers, and these integers are used to calculate jumps
-from the top of the switch to the part that matches that value. Here’s some code that we’ll break down to
-understand this concept of "jump tables":
+In other languages like Ruby you have a switch-statement that can take any expression.
+Some languages like Python just don’t have a switch-statement
+since an if-statement with boolean expressions is about the same thing.
+For these languages, switch-statements are more alternatives to if-statements
+and work the same internally.
+The switch-statement is actually entirely different and is really a "jump table".
+Instead of random boolean expressions,
+you can only put expressions that result in integers,
+and these integers are used to calculate jumps from the top of the switch
+to the part that matches that value.
+Here’s some code that we’ll break down to understand this concept of "jump tables":
 ex13.c
 
 #include <stdio.h>
@@ -503,37 +538,45 @@ int main(int argc, char *argv[])
 }
 
 
-In this program we take a single command line argument and print out all of the vowels in an incredibly tedious
-way to demonstrate a switch-statement. Here’s how the switch-statement works:
-1. The compiler marks the place in the program where the switch-statement starts, let’s call this location
-Y.
-2. It then evaluates the expression in switch(letter) to come up with a number. In this case the number
-will be the raw ASCII code of the letter in argv[1].
-3. The compiler has also translated each of the case blocks like case 'A': into a location in the program
-that is that far away. So the code under case 'A' is at Y+’A’ in the program.
-4. It then does the math to figure out where Y+letter is located in the switch-statement, and if it’s too far
-then it adjusts it to Y+default.
-5. Once it knows the location, the program "jumps" to that spot in the code, and then continues running. This
-is why you have break on some of the case blocks, but not others.
-6. If 'a' is entered, then it jumps to case 'a', there’s no break so it "falls through" to the one right under it
-case 'A' which has code and a break.
+In this program we take a single command line argument and print out all of the vowels
+in an incredibly tedious way to demonstrate a switch-statement.
+Here’s how the switch-statement works:
+1. The compiler marks the place in the program where the switch-statement starts,
+let’s call this location Y.
+2. It then evaluates the expression in switch(letter) to come up with a number.
+In this case the number will be the raw ASCII code of the letter in argv[1].
+3. The compiler has also translated each of the case blocks like case 'A':
+into a location in the program that is that far away.
+So the code under case 'A' is at Y+’A’ in the program.
+4. It then does the math to figure out where Y+letter is located in the switch-statement,
+and if it’s too far then it adjusts it to Y+default.
+5. Once it knows the location, the program "jumps" to that spot in the code,
+and then continues running.
+This is why you have break on some of the case blocks, but not others.
+6. If 'a' is entered, then it jumps to case 'a', there’s no break
+so it "falls through" to the one right under it case 'A' which has code and a break.
 7. Finally it runs this code, hits the break then exits out of the switch-statement entirely.
-This is a deep dive into how the switch-statement works, but in practice you just have to remember a few
-simple rules:
+This is a deep dive into how the switch-statement works,
+but in practice you just have to remember a few simple rules:
 1. Always include a default: branch so that you catch any missing inputs.
-2. Don’t allow "fall through" unless you really want it, and it’s a good idea to add a comment //fallthrough
-so people know it’s on purpose.
+2. Don’t allow "fall through" unless you really want it,
+and it’s a good idea to add a comment //fallthrough so people know it’s on purpose.
 3. Always write the case and the break before you write the code that goes in it.
 4. Try to just use if-statements instead if you can.
 
 (output)
 
-Remember that there’s that if-statement at the top that exits with a return 1; when you don’t give enough
-arguments. Doing a return that’s not 0 is how you indicate to the OS that the program had an error. Any value
-that’s greater than 0 can be tested for in scripts and other programs to figure out what happened.
+Remember that there’s that if-statement at the top that exits with a return 1;
+when you don’t give enough arguments.
+Doing a return that’s not 0 is how you indicate to the OS that the program had an error.
+Any value that’s greater than 0 can be tested for in scripts and other programs
+to figure out what happened.
 
-Exercise 14: Writing And Using Functions
-Until now you’ve just used functions that are part of the stdio.h header file. In this exercise you will write
+***************
+Functions
+****************
+Until now you’ve just used functions that are part of the stdio.h header file.
+In this exercise you will write
 some functions and use some other functions.
 ex14.c
 
@@ -580,35 +623,44 @@ int main(int argc, char *argv[])
 }
 
 
-In this example you’re creating functions to print out the characters and ASCII codes for any that are "alpha" or
-"blanks". Here’s the breakdown:
+In this example you’re creating functions to print out the characters
+and ASCII codes for any that are "alpha" or "blanks". Here’s the breakdown:
 ex14.c:2 Include a new header file so we can gain access to isalpha and isblank.
-ex14.c:5-6 Tell C that you will be using some functions later in your program, without having to actually define
-them. This is a "forward declaration" and it solves the chicken-and-egg problem of needing to use a function
-before you’ve defined it.
-ex14.c:8-15 Define the print_arguments which knows how to print the same array of strings that main typi-
-cally gets.
-ex14.c:17-30 Define the next function print_letters that is called by print_arguments and knows how to
-print each of the characters and their codes.
-ex14.c:32-35 Define can_print_it which simply returns the truth value (0 or 1) of isalpha(ch) || isblank(ch)
-back to its caller print_letters.
-ex14.c:38-42 Finally main simply calls print_arguments to make the whole chain of function calls go.
-I shouldn’t have to describe what’s in each function because it’s all things you’ve ran into before. What you
-should be able to see though is that I’ve simply defined functions the same way you’ve been defining main. The
-only difference is you have to help C out by telling it ahead of time if you’re going to use functions it hasn’t
-encountered yet in the file. That’s what the "forward declarations" at the top do.
+ex14.c:5-6 Tell C that you will be using some functions later in your program,
+without having to actually define them.
+This is a "forward declaration" and it solves the chicken-and-egg problem
+of needing to use a function before you’ve defined it.
+ex14.c:8-15 Define the print_arguments
+which knows how to print the same array of strings that main typically gets.
+ex14.c:17-30 Define the next function print_letters that is called by print_arguments
+and knows how to print each of the characters and their codes.
+ex14.c:32-35 Define can_print_it which simply returns the truth value (0 or 1)
+of isalpha(ch) || isblank(ch) back to its caller print_letters.
+ex14.c:38-42 Finally main simply calls print_arguments
+to make the whole chain of function calls go.
+I shouldn’t have to describe what’s in each function
+because it’s all things you’ve ran into before.
+What you should be able to see though is that I’ve simply defined functions
+the same way you’ve been defining main.
+The only difference is you have to help C out by telling it ahead of time
+if you’re going to use functions it hasn’t encountered yet in the file.
+That’s what the "forward declarations" at the top do.
 
 (output)
-The isalpha and isblank do all the work of figuring out if the given character is a letter or a blank. When I do
-the last run it prints everything but the ’3’ character, since that is a digit.
+The isalpha and isblank do all the work of figuring out
+if the given character is a letter or a blank.
+When I do the last run it prints everything but the ’3’ character, since that is a digit.
 
 ********************************
 Exercise 15: Pointers Dreaded Pointers
-Pointers are famous mystical creatures in C that I will attempt to demystify by teaching you the vocabulary used
-to deal with them. They actually aren’t that complex, it’s just they are frequently abused in weird ways that
-make them hard to use. If you avoid the stupid ways to use pointers then they’re fairly easy.
-To demonstrate pointers in a way we can talk about them, I’ve written a frivolous program that prints a group
-of people’s ages in three different ways:1
+*************************************
+Pointers are famous mystical creatures in C that I will attempt to demystify
+by teaching you the vocabulary used to deal with them.
+They actually aren’t that complex, it’s just they are frequently abused in weird ways
+that make them hard to use.
+If you avoid the stupid ways to use pointers then they’re fairly easy.
+To demonstrate pointers in a way we can talk about them, I’ve written a frivolous program
+that prints a group of people’s ages in three different ways:
 ex15.c
 
 #include <stdio.h>
@@ -662,123 +714,160 @@ int main(int argc, char *argv[])
 }
 
 
-1Remember,
- in this book you type in programs you might not understand, and then try figure them out before I explain what’s going on.
-
-
-Before explaining how pointers work, let’s break this program down line-by-line so you get an idea of what’s
-going on. As you go through this detailed description, try to answer the questions for yourself on a piece of
-paper, then see if what you guessed was going on matches my description of pointers later.
-ex15.c:6-10 Create two arrays, ages storing some int data, and names storing an array of strings.
+Before explaining how pointers work,
+let’s break this program down line-by-line so you get an idea of what’s going on.
+As you go through this detailed description,
+try to answer the questions for yourself on a piece of paper,
+then see if what you guessed was going on matches my description of pointers later.
+ex15.c:6-10 Create two arrays, ages storing some int data,
+and names storing an array of strings.
 ex15.c:12-13 Some variables for our for-loops later.
-ex15.c:16-19 You know this is just looping through the two arrays and printing how old each person is. This is
-using i to index into the array.
-ex15.c:24 Create a pointer that points at ages. Notice the use of int * to create a "pointer to integer" type of
-pointer. That’s similar to char *, which is a "pointer to char", and a string is an array of chars. Seeing the
-similarity yet?
-ex15.c:25 Create a pointer that points at names. A char * is already a "pointer to char", so that’s just a string.
-You however need 2 levels, since names is 2-dimensional, that means you need char ** for a "pointer to
-(a pointer to char)" type. Study that too, explain it to yourself.
-ex15.c:28-31 Loop through ages and names but instead use the pointers plus an offset of i. Writing *(cur_name+i)
-is the same as writing name[i], and you read it as "the value of (pointer cur_name plus i)".
-ex15.c:35-39 This shows how the syntax to access an element of an array is the same for a pointer and an array.
-ex15.c:44-50 Another admittedly insane loop that does the same thing as the other two, but instead it uses
-various pointer arithmetic methods:
-ex15.c:44 Initialize our for-loop by setting cur_name and cur_age to the beginning of the names and
-ages arrays.
-ex15.c:45 The test portion of the for-loop then compares the distance of the pointer cur_age from the
-start of ages. Why does that work?
-ex15.c:46 The increment part of the for-loop then increments both cur_name and cur_age so that they
-point at the next element of the name and age arrays.
-ex15.c:48-49 The pointers cur_name and cur_age are now pointing at one element of the arrays they
-work on, and we can print them out using just *cur_name and *cur_age, which means "the value of
-wherever cur_name is pointing".
-This seemingly simple program has a large amount of information, and the goal is to get you to attempt figuring
-pointers out for yourself before I explain them. Don’t continue until you’ve written down what you think a pointer
-does.
+ex15.c:16-19 You know this is just looping through the two arrays
+and printing how old each person is. This is using i to index into the array.
+ex15.c:24 Create a pointer that points at ages.
+Notice the use of int * to create a "pointer to integer" type of pointer.
+That’s similar to char *, which is a "pointer to char", and a string is an array of chars.
+Seeing the similarity yet?
+ex15.c:25 Create a pointer that points at names.
+A char * is already a "pointer to char", so that’s just a string.
+You however need 2 levels, since names is 2-dimensional,
+that means you need char ** for a "pointer to (a pointer to char)" type.
+Study that too, explain it to yourself.
+ex15.c:28-31 Loop through ages and names but instead use the pointers plus an offset of i.
+Writing *(cur_name+i) is the same as writing name[i],
+and you read it as "the value of (pointer cur_name plus i)".
+ex15.c:35-39 This shows how the syntax to access an element of an array
+is the same for a pointer and an array.
+ex15.c:44-50 Another admittedly insane loop that does the same thing as the other two,
+but instead it uses various pointer arithmetic methods:
+ex15.c:44 Initialize our for-loop by setting cur_name and cur_age
+to the beginning of the names and ages arrays.
+ex15.c:45 The test portion of the for-loop then compares the distance
+of the pointer cur_age from the start of ages. Why does that work?
+ex15.c:46 The increment part of the for-loop then increments both cur_name and cur_age
+so that they point at the next element of the name and age arrays.
+ex15.c:48-49 The pointers cur_name and cur_age are now pointing
+at one element of the arrays they work on,
+and we can print them out using just *cur_name and *cur_age,
+which means "the value of wherever cur_name is pointing".
+This seemingly simple program has a large amount of information,
+and the goal is to get you to attempt figuring pointers out for yourself before I explain them.
+Don’t continue until you’ve written down what you think a pointer does.
 
-16.2
- Explaining Pointers
-When you type something like ages[i] you are "indexing" into the array ages, and you’re using the number
-that’s held in i to do it. If i is set to 0 then it’s the same as typing ages[0]. We’ve been calling this number i an
-"index" since it’s a location inside ages that we want. It could also be called an "address", that’s a way of saying
+16.2 Explaining Pointers
+
+When you type something like ages[i] you are "indexing" into the array ages,
+and you’re using the number that’s held in i to do it.
+If i is set to 0 then it’s the same as typing ages[0].
+We’ve been calling this number i an "index" since it’s a location inside ages that we want.
+It could also be called an "address", that’s a way of saying
 "I want the integer in ages that is at address i".
-If i is an index, then what’s ages? To C ages is a location in the computer’s memory where all of these integers
-start. It is also an address, and the C compiler will replace anywhere you type ages with the address of the very
-first integer in ages. Another way to think of ages is it’s the "address of the first integer in ages". But, the trick
-is ages is an address inside the entire computer. It’s not like i which was just an address inside ages. The ages
-array name is actually an address in the computer.
-That leads to a certain realization: C thinks your whole computer is one massive array of bytes. Obviously this
-isn’t very useful, but then C layers on top of this massive array of bytes the concept of types and sizes of those
-types. You already saw how this worked in previous exercises, but now you can start to get an idea that C is
-somehow doing the following with your arrays:
+If i is an index, then what’s ages?
+To C ages is a location in the computer’s memory where all of these integers start.
+It is also an address, and the C compiler will replace anywhere you type ages
+with the address of the very first integer in ages.
+Another way to think of ages is it’s the "address of the first integer in ages".
+But, the trick is ages is an address inside the entire computer.
+It’s not like i which was just an address inside ages.
+The ages array name is actually an address in the computer.
+That leads to a certain realization: C thinks your whole computer
+is one massive array of bytes.
+Obviously this isn’t very useful, but then C layers on top of this massive array of bytes
+the concept of types and sizes of those types.
+You already saw how this worked in previous exercises,
+but now you can start to get an idea that C is somehow doing the following with your arrays:
 1. Creating a block of memory inside your computer.
 2. "Pointing" the name ages at the beginning of that block.
-3. "Indexing" into the block by taking the base address of ages and getting the element that’s i away from
-there.
-4. Converting that address at ages+i into a valid int of the right size, such that the index works to return
-what you want: the int at index i.
-If you can take a base address, like ages, and then "add" to it with another address like i to produce a new
-address, then can you just make something that points right at this location all the time? Yes, and that thing is
-called a "pointer". This is what the pointers cur_age and cur_name are doing. They are variables pointing at the
-location where ages and names live in your computer’s memory. The example program is then moving them
-around or doing math on them to get values out of the memory. In one instance, they just add i to cur_age,
-which is the same as what it does with array[i]. In the last for-loop though these two pointers are being
-moved on their own, without i to help out. In that loop, the pointers are treated like a combination of array and
-integer offset rolled into one.
-A pointer is simply an address pointing somewhere inside the computer’s memory, with a type specifier so you
-get the right size of data with it. It is kind of like a combined ages and i rolled into one data type. C knows
-where pointers are pointing, knows the data type they point at, the size of those types, and how to get the data
-for you. Just like i you can increment them, decrement them, subtract or add to them. But, just like ages you
-can also get values out with them, put new values in, and all the array operations.
-The purpose of a pointer is to let you manually index into blocks or memory when an array won’t do it right.
-In almost all other cases you actually want to use an array. But, there are times when you have to work with a
-raw block of memory and that’s where a pointer comes in. A pointer gives you raw, direct access to a block of
-memory so you can work with it.
-The final thing to grasp at this stage is that you can use either syntax for most array or pointer operations. You
-can take a pointer to something, but use the array syntax for accessing it. You can take an array and do pointer
-arithmetic with it.
-16.3
- Practical Pointer Usage
+3. "Indexing" into the block by taking the base address of ages
+and getting the element that’s i away from there.
+4. Converting that address at ages+i into a valid int of the right size,
+such that the index works to return what you want: the int at index i.
+If you can take a base address, like ages,
+and then "add" to it with another address like i to produce a new address,
+then can you just make something that points right at this location all the time?
+Yes, and that thing is called a "pointer".
+This is what the pointers cur_age and cur_name are doing.
+They are variables pointing at the location
+where ages and names live in your computer’s memory.
+The example program is then moving them around or doing math on them
+to get values out of the memory.
+In one instance, they just add i to cur_age, which is the same as what it does with array[i].
+In the last for-loop though these two pointers are being moved on their own,
+without i to help out.
+In that loop, the pointers are treated like a combination
+of array and integer offset rolled into one.
+A pointer is simply an address pointing somewhere inside the computer’s memory,
+with a type specifier so you get the right size of data with it.
+It is kind of like a combined ages and i rolled into one data type.
+C knows where pointers are pointing, knows the data type they point at,
+the size of those types, and how to get the data for you.
+Just like i you can increment them, decrement them, subtract or add to them.
+But, just like ages you can also get values out with them,
+put new values in, and all the array operations.
+The purpose of a pointer is to let you manually index into blocks or memory
+when an array won’t do it right.
+In almost all other cases you actually want to use an array.
+But, there are times when you have to work with a raw block of memory
+and that’s where a pointer comes in.
+A pointer gives you raw, direct access to a block of memory so you can work with it.
+The final thing to grasp at this stage is
+that you can use either syntax for most array or pointer operations.
+You can take a pointer to something, but use the array syntax for accessing it.
+You can take an array and do pointer arithmetic with it.
+
+16.3 Practical Pointer Usage
+
 There are four primary useful things you do with pointers in C code:
-1. Ask the OS for a chunk of memory and use a pointer to work with it. This includes strings and something
-you haven’t seen yet, structs.
-2. Passing large blocks of memory (like large structs) to functions with a pointer so you don’t have to pass the
-whole thing to them.
+1. Ask the OS for a chunk of memory and use a pointer to work with it.
+This includes strings and something you haven’t seen yet, structs.
+2. Passing large blocks of memory (like large structs) to functions with a pointer
+so you don’t have to pass the whole thing to them.
 3. Taking the address of a function so you can use it as a dynamic callback.
-4. Complex scanning of chunks of memory such as converting bytes off a network socket into data structures
-or parsing files.
-For nearly everything else you see people use pointers, they should be using arrays. In the early days of C pro-
-gramming people used pointers to speed up their programs because the compilers were really bad at optimizing
-array usage. These days the syntax to access an array vs. a pointer are translated into the same machine code
-and optimized the same, so it’s not as necessary. Instead, you go with arrays every time you can, and then only
-use pointers as a performance optimization if you absolutely have to.
-65
-16.4
- The Pointer Lexicon
-I’m now going to give you a little lexicon to use for reading and writing pointers. Whenever you run into a
-complex pointer statement, just refer to this and break it down bit by bit (or just don’t use that code since it’s
-probably not good code):
+4. Complex scanning of chunks of memory
+such as converting bytes off a network socket into data structures or parsing files.
+
+For nearly everything else you see people use pointers, they should be using arrays.
+In the early days of C programming people used pointers to speed up their programs
+because the compilers were really bad at optimizing array usage.
+These days the syntax to access an array vs. a pointer
+are translated into the same machine code and optimized the same,
+so it’s not as necessary.
+Instead, you go with arrays every time you can,
+and then only use pointers as a performance optimization if you absolutely have to.
+
+16.4 The Pointer Lexicon
+
+I’m now going to give you a little lexicon to use for reading and writing pointers.
+Whenever you run into a complex pointer statement,
+just refer to this and break it down bit by bit
+(or just don’t use that code since it’s probably not good code):
+
 type *ptr "a pointer of type named ptr"
 *ptr "the value of whatever ptr is pointed at"
 *(ptr + i) "the value of (whatever ptr is pointed at plus i)"
 &thing "the address of thing"
 type *ptr = &thing "a pointer of type named ptr set to the address of thing"
 ptr++ "increment where ptr points"
-We’ll be using this simple lexicon to break down all of the pointers we use from now on in the book.
-16.5
- Pointers Are Not Arrays
-No matter what, you should never think that pointers and arrays are the same thing. They are not the same thing,
-even though C lets you work with them in many of the same ways. For example, if you do sizeof(cur_age) in
-the code above, you would get the size of the pointer, not the size of what it points at. If you want the size of the
-full array, you have to use the array’s name, age as I did on line 12.
-TODO: expand on this some more with what doesn’t work on both the same.
+We’ll be using this simple lexicon to break down
+all of the pointers we use from now on in the book.
+
+16.5 Pointers Are Not Arrays
+
+No matter what, you should never think that pointers and arrays are the same thing.
+They are not the same thing, even though C lets you work with them
+in many of the same ways.
+For example, if you do sizeof(cur_age) in the code above,
+you would get the size of the pointer, not the size of what it points at.
+If you want the size of the full array, you have to use the array’s name, age
+as I did on line 12.
 
 Exercise 16: Structs And Pointers To Them
-In this exercise you’ll learn how to make a struct, point a pointer at them, and use them to make sense of inter-
-nal memory structures. I’ll also apply the knowledge of pointers from the last exercise and get you constructing
-these structures from raw memory using malloc.
-As usual, here’s the program we’ll talk about, so type it in and make it work:
+
+In this exercise you’ll learn how to make a struct,
+point a pointer at them, and use them to make sense of internal memory structures.
+I’ll also apply the knowledge of pointers from the last exercise
+and get you constructing these structures from raw memory using malloc.
+
 ex16.c
 
 #include <stdio.h>
@@ -856,64 +945,88 @@ int main(int argc, char *argv[])
 }
 
 
-To describe this program, I’m going to use a different approach than before. I’m not going to give you a line-by-
-line breakdown of the program, but I’m going to make you write it. I’m going to give you a guide through the
-program based on the parts it contains, and your job is to write out what each line does.
-includes I include some new header files here to gain access to some new functions. What does each give you?
-struct Person This is where I’m creating a structure that has 4 elements to describe a person. The final result is
-a new compound type that lets me reference these elements all as one, or each piece by name. It’s similar
-to a row of a database table or a class in an OOP language.
-function Person_create I need a way to create these structures so I’ve made a function to do that. Here’s the
-important things this function is doing:
+We include some new header files here to gain access to some new functions.
+What does each give you?
+
+struct Person
+
+This is where I’m creating a structure that has 4 elements to describe a person.
+The final result is a new compound type that lets me reference these elements all as one,
+or each piece by name.
+It’s similar to a row of a database table or a class in an OOP language.
+
+function Person_create
+
+I need a way to create these structures so I’ve made a function to do that.
+Here’s the important things this function is doing:
+
 1. I use malloc for "memory allocate" to ask the OS to give me a piece of raw memory.
-2. I pass to malloc the sizeof(struct Person) which calculates the total size of the struct, given all
-the fields inside it.
-3. I use assert to make sure that I have a valid piece of memory back from malloc. There’s a special
-constant called NULL that you use to mean "unset or invalid pointer". This assert is basically checking
-that malloc didn’t return a NULL invalid pointer.
-4. I initialize each field of struct Person using the x->y syntax, to say what part of the struct I want to
-set.
-5. I use the strdup function to duplicate the string for the name, just to make sure that this structure
-actually owns it. The strdup actually is like malloc and it also copies the original string into the
-memory it creates.
-function Person_destroy If I have a create, then I always need a destroy function, and this is what destroys
-Person structs. I again use assert to make sure I’m not getting bad input. Then I use the function free to
-return the memory I got with malloc and strdup. If you don’t do this you get a "memory leak".
-function Person_print I then need a way to print out people, which is all this function does. It uses the same
-x->y syntax to get the field from the struct to print it.
-function main In the main function I use all the previous functions and the struct Person to do the following:
+2. I pass to malloc the sizeof(struct Person) which calculates the total size of the struct,
+given all the fields inside it.
+3. I use assert to make sure that I have a valid piece of memory back from malloc.
+There’s a special constant called NULL that you use to mean "unset or invalid pointer".
+This assert is basically checking that malloc didn’t return a NULL invalid pointer.
+4. I initialize each field of struct Person using the x->y syntax,
+to say what part of the struct I want to set.
+5. I use the strdup function to duplicate the string for the name,
+just to make sure that this structure actually owns it.
+The strdup actually is like malloc
+and it also copies the original string into the memory it creates.
+
+function Person_destroy
+
+If I have a create, then I always need a destroy function,
+and this is what destroys Person structs.
+I again use assert to make sure I’m not getting bad input.
+Then I use the function free to return the memory I got with malloc and strdup.
+If you don’t do this you get a "memory leak".
+
+function Person_print
+
+I then need a way to print out people, which is all this function does.
+It uses the same x->y syntax to get the field from the struct to print it.
+
+function main
+
+In the main function I use all the previous functions and the struct Person to do the following:
+
 1. Create two people, joe and frank.
-2. Print them out, but notice I’m using the %p format so you can see where the program has actually put
-your struct in memory.
+2. Print them out, but notice I’m using the %p format
+so you can see where the program has actually put your struct in memory.
 3. Age both of them by 20 years, with changes to their body too.
 4. Print each one after aging them.
 5. Finally destroy the structures so we can clean up correctly.
 Go through this description carefully, and do the following:
-1. Look up every function and header file you don’t know about. Remember that you can usually do man 2 function
-or man 3 function and it’ll tell you about it. You can also search online for the information.
+1. Look up every function and header file you don’t know about.
+Remember that you can usually do man 2 function or man 3 function
+and it’ll tell you about it. You can also search online for the information.
 2. Write a comment above each and every single line saying what the line does in English.
-3. Trace through each function call and variable so you know where it comes from in the program.
+3. Trace through each function call and variable
+so you know where it comes from in the program.
 4. Look up any symbols you don’t know as well.
-17.2
- Explaining Structures
-If you’ve done the work I asked you then structures should be making sense, but let me explain them explicitly
-just to make sure you’ve understood it.
-A structure in C is a collection of other data types (variables) that are stored in one block of memory but let
-you access each variable independently by name. They are similar to a record in a database table, or a very
-simplistic class in an object oriented language. We can break one down this way:
-1. In the above code, you make a struct that has the fields you’d expect for a person: name, age, weight,
-height.
+
+17.2 Explaining Structures
+
+A structure in C is a collection of other data types (variables)
+that are stored in one block of memory
+but let you access each variable independently by name.
+They are similar to a record in a database table,
+or a very simplistic class in an object oriented language. We can break one down this way:
+1. In the above code, you make a struct that has the fields you’d expect for a person:
+name, age, weight, height.
 2. Each of those fields has a type, like int.
 3. C then packs those together so they can all be contained in one single struct.
-4. The struct Person is now a compound data type, which means you can now refer to struct Person in
-the same kinds of expressions you would other data types.
-5. This lets you pass the whole cohesive grouping to other functions, as you did with Person_print.
-6. You can then access the individual parts of a struct by their names using x->y if you’re dealing with a
-pointer.
-7. There’s also a way to make a struct that doesn’t need a pointer, and you use the x.y (period) syntax to work
-with it. You’ll do this in the Extra Credit.
-If you didn’t have struct you’d need to figure out the size, packing, and location of pieces of memory with
-contents like this. In fact, in most early assembler code (and even some now) this is what you do. With C you can
-let C handle the memory structuring of these compound data types and then focus on what you do with them.
-
-
+4. The struct Person is now a compound data type,
+which means you can now refer to struct Person
+in the same kinds of expressions you would other data types.
+5. This lets you pass the whole cohesive grouping to other functions,
+as you did with Person_print.
+6. You can then access the individual parts of a struct by their names using x->y
+if you’re dealing with a pointer.
+7. There’s also a way to make a struct that doesn’t need a pointer,
+and you use the x.y (period) syntax to work with it. You’ll do this in the Extra Credit.
+If you didn’t have struct you’d need to figure out
+the size, packing, and location of pieces of memory with contents like this.
+In fact, in most early assembler code (and even some now) this is what you do.
+With C you can let C handle the memory structuring of these compound data types
+and then focus on what you do with them.
