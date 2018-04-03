@@ -1,23 +1,24 @@
-CFLAGS = -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
-LIBS = $(OPTLIBS)
-PREFIX ?= /usr/local
-
-# control to echo commands
-Q=@
+CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+LDFLAGS=$(OPTLIBS)
+PREFIX?=/usr/local
 
 SOURCES=$(wildcard src/**/*.c src/*.c)
-OBJECTS=$(patsubst %.c, %.o, $(SOURCES))
+OBJECTS=$(patsubst %.c,%.o,$(SOURCES))
 
 TEST_SRC=$(wildcard tests/*_tests.c)
-TESTS=$(patsubst %.c, %, $(TEST_SRC))
+TESTS=$(patsubst %.c,%,$(TEST_SRC))
 
-TARGET = build/liblcthw.a
-SO_TARGET = $(patsubst %.a, %.so, $(TARGET))
+TARGET=build/liblcthw.a
+
+OS=$(shell lsb_release -si)
+ifeq ($(OS),Ubuntu)
+	LDLIBS=-llcthw -lbsd -L./build -lm
+endif
 
 # The Target Build
-all: $(TARGET) $(SO_TARGET) tests
+all: $(TARGET) tests
 
-dev: CFLAGS = -g -Wall -Isrc -Wall -Wextra $(OPTLIBS)
+dev: CFLAGS=-g -Wall -Isrc -Wall -Wextra $(OPTFLAGS)
 dev: all
 
 $(TARGET): CFLAGS += -fPIC
@@ -25,21 +26,15 @@ $(TARGET): build $(OBJECTS)
 	ar rcs $@ $(OBJECTS)
 	ranlib $@
 
-$(SO_TARGET): $(TARGET) $(OBJECTS)
-	$(CC) -shared -o $@ $(OBJECTS)
-
 build:
-	$(Q)mkdir -p build
-	$(Q)mkdir -p bin
+	@mkdir -p build
+	@mkdir -p bin
 
 # The Unit Tests
 .PHONY: tests
-tests: CFLAGS += $(TARGET)
+tests: LDLIBS += $(TARGET)
 tests: $(TESTS)
 	sh ./tests/runtests.sh
-
-$(TESTS):%:%.c
-	$(CC) $^ $(CFLAGS) $(LIBS) -o $@
 
 valgrind:
 	VALGRIND="valgrind --log-file=/tmp/valgrind-%p.log" $(MAKE)
@@ -47,7 +42,7 @@ valgrind:
 # The Cleaner
 clean:
 	rm -rf build $(OBJECTS) $(TESTS)
-	rm -f tests/tests.log
+	rm -f tests/tests.log 
 	find . -name "*.gc*" -exec rm {} \;
 	rm -rf `find . -name "*.dSYM" -print`
 
@@ -57,7 +52,7 @@ install: all
 	install $(TARGET) $(DESTDIR)/$(PREFIX)/lib/
 
 # The Checker
-BADFUNCS="[^_.>a-zA-Z0-9](str(n?cpy|n?cat|xfrm|n?dup|str|pbrk|tok|_)|stpn?cpy|a?sn?printf|byte_)"
 check:
-	$(Q)echo Files with potentially dangerous functions.
-	$(Q)egrep $(BADFUNCS) $(SOURCES) || true
+	@echo Files with potentially dangerous functions.
+	@egrep '[^_.>a-zA-Z0-9](str(n?cpy|n?cat|xfrm|n?dup|str|pbrk|tok|_)|stpn?cpy|a?sn?printf|byte_)' $(SOURCES) || true
+
